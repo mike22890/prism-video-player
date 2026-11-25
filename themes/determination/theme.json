@@ -1,0 +1,45 @@
+{
+  "id": "determination",
+  "name": "决心·黑白",
+  "sound": "sound.wav",
+  "style": "determination",
+  "tokens": {
+    "color.bg": "#101014",
+    "color.surface": "#1a1a20",
+    "color.surfaceAlt": "#232329",
+    "color.ink": "#f2f2f2",
+    "color.inkDim": "#9a9aa5",
+    "color.accent": "#ff2d2d",
+    "color.accentDim": "#5c1010",
+    "color.border": "#4a4a55",
+    "color.danger": "#ff2d2d",
+    "color.warning": "#d1c26a",
+    "color.success": "#bfbfc9",
+    "font.family": "SimHei",
+    "font.mono": "Courier New",
+    "font.size": 16,
+    "radius.panel": 0,
+    "radius.button": 0,
+    "radius.input": 0,
+    "motion.duration": 110,
+    "motion.reduce": false,
+    "cap.scanlines": false,
+    "cap.vignette": true,
+    "cap.curvature": false,
+    "cap.glow": false,
+    "cap.cursorBlink": true,
+    "panel.alpha": 0.55
+  },
+  "video": {
+    "defaultShader": "vhs",
+    "overlay": ""
+  },
+  "capabilities": {
+    "scanlines": false,
+    "vignette": true,
+    "curvature": false,
+    "glow": false,
+    "cursor": true,
+    "deco": "heart"
+  }
+}

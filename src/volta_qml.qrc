@@ -1,0 +1,24 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/qml">
+        <file alias="Main.qml">qml/Main.qml</file>
+        <file alias="Shell.qml">qml/Shell.qml</file>
+        <file alias="PlaylistPanel.qml">qml/PlaylistPanel.qml</file>
+        <file alias="VideoSlot.qml">qml/VideoSlot.qml</file>
+        <file alias="TransportBar.qml">qml/TransportBar.qml</file>
+        <file alias="ThemeBackdrop.qml">qml/ThemeBackdrop.qml</file>
+        <file alias="ChromeBtn.qml">qml/ChromeBtn.qml</file>
+        <file alias="app.ico">../app.ico</file>
+        <file alias="bg_dynamic.frag.qsb">../shaders/bg_dynamic.frag.qsb</file>
+        <file alias="ambient_glow.frag.qsb">../shaders/ambient_glow.frag.qsb</file>
+        <file alias="glow_warm.png">../themes/_fx/glow_warm.png</file>
+        <file alias="glow_cyan.png">../themes/_fx/glow_cyan.png</file>
+        <file alias="bg_default.png">../themes/_fx/bg_default.png</file>
+        <file alias="bg_determination.png">../themes/_fx/bg_determination.png</file>
+        <file alias="bg_gameboy.png">../themes/_fx/bg_gameboy.png</file>
+        <file alias="bg_nes.png">../themes/_fx/bg_nes.png</file>
+        <file alias="bg_synthwave.png">../themes/_fx/bg_synthwave.png</file>
+        <file alias="bg_terminal.png">../themes/_fx/bg_terminal.png</file>
+        <file alias="bg_winxp.png">../themes/_fx/bg_winxp.png</file>
+    </qresource>
+</RCC>

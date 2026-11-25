@@ -1,0 +1,45 @@
+{
+  "id": "terminal",
+  "name": "终端·磷光",
+  "sound": "sound.wav",
+  "style": "terminal",
+  "tokens": {
+    "color.bg": "#0a0f0a",
+    "color.surface": "#050a05",
+    "color.surfaceAlt": "#04160a",
+    "color.ink": "#33ff66",
+    "color.inkDim": "#2bbf5c",
+    "color.accent": "#33ff66",
+    "color.accentDim": "#0f3a18",
+    "color.border": "#1e5c33",
+    "color.danger": "#d97a7a",
+    "color.warning": "#e0a24a",
+    "color.success": "#33ff66",
+    "font.family": "Consolas",
+    "font.mono": "Consolas",
+    "font.size": 16,
+    "radius.panel": 0,
+    "radius.button": 0,
+    "radius.input": 0,
+    "motion.duration": 120,
+    "motion.reduce": false,
+    "cap.scanlines": true,
+    "cap.vignette": true,
+    "cap.curvature": true,
+    "cap.glow": true,
+    "cap.cursorBlink": true,
+    "panel.alpha": 0.78
+  },
+  "video": {
+    "defaultShader": "crt",
+    "overlay": "scanlines"
+  },
+  "capabilities": {
+    "scanlines": true,
+    "vignette": true,
+    "curvature": true,
+    "glow": true,
+    "cursor": true,
+    "deco": "scan"
+  }
+}

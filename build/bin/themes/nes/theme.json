@@ -1,0 +1,45 @@
+{
+  "id": "nes",
+  "name": "8位·红白机",
+  "sound": "sound.wav",
+  "style": "pixel",
+  "tokens": {
+    "color.bg": "#0b1e3c",
+    "color.surface": "#10305c",
+    "color.surfaceAlt": "#0a2347",
+    "color.ink": "#ffffff",
+    "color.inkDim": "#9fc4e8",
+    "color.accent": "#ffd23f",
+    "color.accentDim": "#6b5510",
+    "color.border": "#2a5a9c",
+    "color.danger": "#e8483c",
+    "color.warning": "#ff9f1c",
+    "color.success": "#63c74d",
+    "font.family": "SimSun",
+    "font.mono": "Courier New",
+    "font.size": 16,
+    "radius.panel": 0,
+    "radius.button": 0,
+    "radius.input": 0,
+    "motion.duration": 90,
+    "motion.reduce": false,
+    "cap.scanlines": false,
+    "cap.vignette": false,
+    "cap.curvature": false,
+    "cap.glow": false,
+    "cap.cursorBlink": false,
+    "panel.alpha": 0.5
+  },
+  "video": {
+    "defaultShader": "pixel",
+    "overlay": ""
+  },
+  "capabilities": {
+    "scanlines": false,
+    "vignette": false,
+    "curvature": false,
+    "glow": false,
+    "cursor": false,
+    "deco": "clouds"
+  }
+}

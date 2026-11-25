@@ -1,0 +1,47 @@
+{
+  "id": "synthwave",
+  "name": "合成波·落日",
+  "sound": "sound.wav",
+  "style": "neon",
+  "tokens": {
+    "color.bg": "#1a0b2e",
+    "color.surface": "#2a1145",
+    "color.surfaceAlt": "#351a52",
+    "color.bgTop": "#2b0b3f",
+    "color.bgBottom": "#7a1f5c",
+    "color.ink": "#ff8ad8",
+    "color.inkDim": "#b97ab8",
+    "color.accent": "#00e5ff",
+    "color.accentDim": "#0a5566",
+    "color.border": "#7a2d9f",
+    "color.danger": "#ff2d6f",
+    "color.warning": "#ffb03a",
+    "color.success": "#39ff14",
+    "font.family": "Noto Sans SC",
+    "font.mono": "Consolas",
+    "font.size": 16,
+    "radius.panel": 3,
+    "radius.button": 3,
+    "radius.input": 2,
+    "motion.duration": 220,
+    "motion.reduce": false,
+    "cap.scanlines": true,
+    "cap.vignette": true,
+    "cap.curvature": false,
+    "cap.glow": true,
+    "cap.cursorBlink": false,
+    "panel.alpha": 0.45
+  },
+  "video": {
+    "defaultShader": "neon",
+    "overlay": "scanlines"
+  },
+  "capabilities": {
+    "scanlines": true,
+    "vignette": true,
+    "curvature": false,
+    "glow": true,
+    "cursor": false,
+    "deco": "grid"
+  }
+}

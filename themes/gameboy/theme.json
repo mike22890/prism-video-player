@@ -1,0 +1,45 @@
+{
+  "id": "gameboy",
+  "name": "掌机·四阶绿",
+  "sound": "sound.wav",
+  "style": "lcd",
+  "tokens": {
+    "color.bg": "#0f380f",
+    "color.surface": "#1e4a1e",
+    "color.surfaceAlt": "#306230",
+    "color.ink": "#9bbc0f",
+    "color.inkDim": "#9bbc0f",
+    "color.accent": "#9bbc0f",
+    "color.accentDim": "#306230",
+    "color.border": "#8bac0f",
+    "color.danger": "#d0d82a",
+    "color.warning": "#c6d02a",
+    "color.success": "#9bbc0f",
+    "font.family": "FangSong",
+    "font.mono": "Consolas",
+    "font.size": 16,
+    "radius.panel": 0,
+    "radius.button": 0,
+    "radius.input": 0,
+    "motion.duration": 80,
+    "motion.reduce": true,
+    "cap.scanlines": true,
+    "cap.vignette": false,
+    "cap.curvature": false,
+    "cap.glow": false,
+    "cap.cursorBlink": false,
+    "panel.alpha": 0.55
+  },
+  "video": {
+    "defaultShader": "lcd",
+    "overlay": ""
+  },
+  "capabilities": {
+    "scanlines": true,
+    "vignette": false,
+    "curvature": false,
+    "glow": false,
+    "cursor": false,
+    "deco": "lcd"
+  }
+}

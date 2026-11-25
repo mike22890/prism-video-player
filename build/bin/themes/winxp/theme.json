@@ -1,0 +1,47 @@
+{
+  "id": "winxp",
+  "name": "蓝天·Luna",
+  "sound": "sound.wav",
+  "style": "luna",
+  "tokens": {
+    "color.bg": "#3a6ea5",
+    "color.surface": "#215d9c",
+    "color.surfaceAlt": "#0d4785",
+    "color.bgTop": "#4a90d9",
+    "color.bgBottom": "#1a4d80",
+    "color.ink": "#ffffff",
+    "color.inkDim": "#cfe0f2",
+    "color.accent": "#b5e89a",
+    "color.accentDim": "#2d6b2d",
+    "color.border": "#83a9d4",
+    "color.danger": "#e0603a",
+    "color.warning": "#f2b034",
+    "color.success": "#5cb85c",
+    "font.family": "DengXian",
+    "font.mono": "Courier New",
+    "font.size": 16,
+    "radius.panel": 7,
+    "radius.button": 4,
+    "radius.input": 3,
+    "motion.duration": 260,
+    "motion.reduce": false,
+    "cap.scanlines": false,
+    "cap.vignette": false,
+    "cap.curvature": false,
+    "cap.glow": false,
+    "cap.cursorBlink": false,
+    "panel.alpha": 0.5
+  },
+  "video": {
+    "defaultShader": "",
+    "overlay": ""
+  },
+  "capabilities": {
+    "scanlines": false,
+    "vignette": false,
+    "curvature": false,
+    "glow": false,
+    "cursor": false,
+    "deco": "bliss"
+  }
+}

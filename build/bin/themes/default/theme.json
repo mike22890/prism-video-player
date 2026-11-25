@@ -1,0 +1,45 @@
+{
+  "id": "default",
+  "name": "暗夜·静默",
+  "sound": "sound.wav",
+  "style": "modern",
+  "tokens": {
+    "color.bg": "#101114",
+    "color.surface": "#17181c",
+    "color.surfaceAlt": "#1c1e23",
+    "color.ink": "#eceded",
+    "color.inkDim": "#8b8f96",
+    "color.accent": "#6ea8fe",
+    "color.accentDim": "#243449",
+    "color.border": "#2b2e35",
+    "color.danger": "#e05561",
+    "color.warning": "#d19a66",
+    "color.success": "#5fb97a",
+    "font.family": "Microsoft YaHei UI",
+    "font.mono": "Consolas",
+    "font.size": 16,
+    "radius.panel": 8,
+    "radius.button": 5,
+    "radius.input": 4,
+    "motion.duration": 180,
+    "motion.reduce": false,
+    "cap.scanlines": false,
+    "cap.vignette": false,
+    "cap.curvature": false,
+    "cap.glow": false,
+    "cap.cursorBlink": false,
+    "panel.alpha": 0.72
+  },
+  "video": {
+    "defaultShader": "",
+    "overlay": ""
+  },
+  "capabilities": {
+    "scanlines": false,
+    "vignette": false,
+    "curvature": false,
+    "glow": false,
+    "cursor": false,
+    "deco": "aurora"
+  }
+}

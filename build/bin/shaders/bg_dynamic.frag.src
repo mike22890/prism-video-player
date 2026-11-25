@@ -1,0 +1,207 @@
+#version 440
+
+layout(location=0) in vec2 qt_TexCoord0;
+layout(location=0) out vec4 fragColor;
+
+layout(std140, binding=0) uniform buf {
+    mat4 qt_Matrix;
+    float qt_Opacity;
+    float uTime;
+    int   uMode;      // 0 default / 1 determination / 2 gameboy / 3 nes / 4 synthwave / 5 terminal / 6 winxp
+    float uPad;
+    vec4  uA;         // base color
+    vec4  uB;         // secondary color
+    vec4  uAccent;    // accent color
+    vec4  uRes;       // xy = pixel resolution
+} ubuf;
+
+// ---- hash / noise -------------------------------------------------------
+float hash11(float p){ p=fract(p*0.1031); p*=p+33.33; p*=p+p; return fract(p); }
+float hash21(vec2 p){ vec3 p3=fract(vec3(p.xyx)*0.1031); p3+=dot(p3,p3.yzx+33.33); return fract((p3.x+p3.y)*p3.z); }
+float vnoise(vec2 p){
+    vec2 i=floor(p), f=fract(p);
+    f=f*f*(3.0-2.0*f);
+    float a=hash21(i), b=hash21(i+vec2(1,0)), c=hash21(i+vec2(0,1)), d=hash21(i+vec2(1,1));
+    return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);
+}
+float fbm(vec2 p){
+    float v=0.0, a=0.5;
+    for(int i=0;i<4;i++){ v+=a*vnoise(p); p*=2.02; a*=0.5; }
+    return v;
+}
+
+// ---- mode 0: 暗夜极光 ----------------------------------------------------
+vec3 aurora(vec2 uv, float t){
+    vec3 col = mix(ubuf.uA.rgb, ubuf.uA.rgb*0.35, uv.y);
+    // 星点
+    vec2 sg = floor(uv*vec2(ubuf.uRes.x,ubuf.uRes.y)/3.0);
+    float st = hash21(sg);
+    if(st>0.9975){
+        float tw = 0.6+0.4*sin(t*2.0+st*100.0);
+        col += vec3(0.75,0.85,1.0)*tw*(1.0-uv.y)*0.8;
+    }
+    // 帘幕：多条不同相位的正弦带，向上收拢、柔和发光
+    for(int i=0;i<4;i++){
+        float fi=float(i);
+        float yb = 0.30 + fi*0.085 + 0.045*sin(uv.x*3.0+t*0.20+fi*1.7);
+        float thick = 0.10 + 0.03*fi;
+        float d = abs(uv.y-yb)/thick;
+        float band = exp(-d*d*2.3);
+        float wob = 0.55+0.45*sin(uv.x*7.0+t*0.55+fi*2.1+sin(uv.x*2.3)*2.0);
+        vec3 tint = mix(ubuf.uB.rgb, ubuf.uAccent.rgb, fi/3.0);
+        col += tint*band*wob*(0.16-fi*0.022);
+    }
+    // 地面冷雾
+    col += ubuf.uB.rgb*exp(-uv.y*7.0)*0.10;
+    return col;
+}
+
+// ---- mode 1: 决心 红心粒子 ----------------------------------------------
+float heartField(vec2 p){
+    // 经典心形隐式：(x^2+y^2-1)^3 - x^2 y^3 <= 0
+    float x=p.x, y=p.y+0.18;
+    float f=pow(x*x+y*y-1.0,3.0)-x*x*y*y*y;
+    return f;
+}
+vec3 determination(vec2 uv, float t){
+    vec3 col = ubuf.uA.rgb; // near black
+    vec2 p = (uv-0.5)*vec2(ubuf.uRes.x/ubuf.uRes.y,1.0);
+    p *= 2.6;
+    // 心形轮廓脉冲
+    float hf = heartField(p);
+    float edge = exp(-abs(hf)*22.0);
+    float inside = smoothstep(0.0,-0.35,hf);
+    float pulse = 0.82+0.18*sin(t*2.2);
+    col += ubuf.uB.rgb*(inside*0.28+edge*0.9)*pulse;
+    // 汇聚粒子：网格抖动点，向心形靠拢
+    vec2 g = uv*vec2(46.0,30.0);
+    vec2 gi = floor(g), gf = fract(g)-0.5;
+    float r = hash21(gi);
+    vec2 jitter = vec2(hash21(gi+1.3),hash21(gi+7.7))-0.5;
+    vec2 pos = (gi+jitter)/vec2(46.0,30.0);
+    float ph = fract(r+t*(0.05+0.08*r));
+    float pull = smoothstep(0.0,1.0,ph);
+    vec2 target = (pos-0.5)*mix(1.0,0.62,pull);
+    float gp = (target.x*ubuf.uRes.x/ubuf.uRes.y)*2.6;
+    float hpp = heartField(vec2(gp,target.y*2.6));
+    float on = exp(-abs(hpp)*30.0)*step(0.55,r);
+    col += ubuf.uB.rgb*on*(0.35+0.65*r);
+    return col;
+}
+
+// ---- mode 2: Game Boy LCD ----------------------------------------------
+vec3 gameboy(vec2 uv, float t){
+    vec2 q = uv*vec2(46.0,34.0);
+    vec2 cell = floor(q);
+    float tone = hash21(cell+float(int(t*3.0))*0.01);
+    // 四阶绿
+    vec3 c0=vec3(0.059,0.220,0.059), c1=vec3(0.188,0.384,0.188),
+         c2=vec3(0.545,0.737,0.059), c3=vec3(0.608,0.737,0.059);
+    float v = 0.55+0.45*vnoise(uv*vec2(7.0,5.0)+t*0.06);
+    vec3 col = v<0.36?c0:(v<0.58?c1:(v<0.80?c2:c3));
+    // 中心留一块亮区(屏幕感)，点阵
+    float d = length((uv-vec2(0.30,0.52))*vec2(ubuf.uRes.x/ubuf.uRes.y,1.0));
+    col = mix(col, c2, smoothstep(0.55,0.15,d)*0.25);
+    col *= step(0.12,fract(q.x))*step(0.12,fract(q.y))*0.25+0.75; // 像素栅格
+    col *= 0.92+0.08*sin(uv.y*ubuf.uRes.y*3.14159); // 扫描线
+    return col;
+}
+
+// ---- mode 3: NES 像素云 -------------------------------------------------
+vec3 nes(vec2 uv, float t){
+    vec3 col = ubuf.uA.rgb;
+    // 草地
+    float gy = 0.84;
+    if(uv.y>gy) col = ubuf.uB.rgb*(0.85+0.15*step(fract(uv.x*22.0),0.5));
+    // 像素云：网格块，随时间平移
+    vec2 g = uv*vec2(20.0,12.0);
+    g.x -= t*0.35;
+    vec2 cell=floor(g), f=fract(g);
+    float r=hash21(cell+floor(t*0.35)*vec2(1,0));
+    if(uv.y<gy && r>0.86){
+        float cx=step(0.15,f.x)*step(f.x,0.85), cy=step(0.35,f.y)*step(f.y,0.65);
+        col=mix(col, vec3(0.99), cx*cy);
+        col=mix(col, vec3(0.24,0.74,0.99), cx*step(0.65,f.y)*step(f.y,0.78));
+    }
+    return col;
+}
+
+// ---- mode 4: 合成波落日网格 ---------------------------------------------
+vec3 synthwave(vec2 uv, float t){
+    float hy=0.52;
+    vec3 col = mix(vec3(0.043,0.008,0.129), vec3(0.30,0.06,0.36), smoothstep(0.0,hy,uv.y));
+    // 太阳
+    vec2 sc=vec2(0.24,hy+0.02);
+    float rr=length((uv-sc)*vec2(ubuf.uRes.x/ubuf.uRes.y,1.0));
+    if(rr<0.19){
+        float yy=(uv.y-(sc.y-0.19))/0.38;
+        vec3 sun=mix(vec3(1.0,0.82,0.25),vec3(1.0,0.17,0.43),clamp(yy,0.0,1.0));
+        float stripe = step(0.35, fract((uv.y-(sc.y-0.19))*46.0)); // 下半横纹
+        if(uv.y<sc.y) sun*=mix(0.15,1.0,stripe);
+        col=mix(col,sun,smoothstep(0.19,0.185,rr));
+    }
+    // 透视网格地板(下半)
+    if(uv.y<hy){
+        float depth=(hy-uv.y);
+        float pp = t*0.30;
+        vec2 gp = vec2((uv.x-0.5)/depth*0.6, 1.0/(depth+0.02)+pp);
+        float gx=abs(fract(gp.x*3.0)-0.5), gz=abs(fract(gp.y)-0.5);
+        float line=smoothstep(0.47,0.5,gx)+smoothstep(0.47,0.5,gz);
+        col += mix(ubuf.uB.rgb,ubuf.uAccent.rgb,0.4)*line*0.22*smoothstep(0.0,0.12,depth);
+        col *= 0.9;
+    }
+    // 地平线辉光
+    col += ubuf.uB.rgb*exp(-abs(uv.y-hy)*38.0)*0.5;
+    return col;
+}
+
+// ---- mode 5: 终端字符雨 -------------------------------------------------
+vec3 terminal(vec2 uv, float t){
+    vec3 col = ubuf.uA.rgb;
+    vec2 g = uv*vec2(64.0,30.0);
+    vec2 cell=floor(g), f=fract(g);
+    float seed=hash21(vec2(cell.x,0.0));
+    float speed=3.0+seed*7.0;
+    float head=fract(t*speed*0.08+seed);
+    float cy=1.0-uv.y;
+    float dist=fract(cy-head+1.0);
+    float trail=exp(-dist*7.0);
+    float glyph=step(0.35,hash21(cell+floor(t*10.0)*0.001));
+    float lit=trail*glyph;
+    vec3 green=ubuf.uB.rgb;
+    col += green*lit*(0.25+0.75*exp(-dist*18.0));
+    col *= 0.90+0.10*sin(uv.y*ubuf.uRes.y*3.14159); // scanline
+    col *= 1.0-0.35*pow(length((uv-0.5)*vec2(1.1,1.0)),2.2); // vignette
+    return col;
+}
+
+// ---- mode 6: XP 绿坡软云 ------------------------------------------------
+vec3 winxp(vec2 uv, float t){
+    vec3 col = mix(vec3(0.18,0.42,0.81), vec3(0.56,0.75,0.91), uv.y);
+    // 软云：多层 fbm 阈值
+    vec2 cp = uv*vec2(3.2,3.2)+vec2(t*0.008,0.0);
+    float n = fbm(cp*2.0);
+    float cloud = smoothstep(0.52,0.72,n)*smoothstep(0.05,0.35,uv.y)*smoothstep(1.0,0.62,uv.y);
+    col=mix(col,vec3(0.98,0.99,1.0),cloud*0.92);
+    // S 形绿坡(两段贝塞尔近似)
+    float hill = 0.34 + 0.10*sin(uv.x*2.6+0.4) + 0.05*sin(uv.x*5.3);
+    if(uv.y<hill){
+        float g=clamp((hill-uv.y)/0.34,0.0,1.0);
+        col=mix(vec3(0.62,0.84,0.36),vec3(0.32,0.58,0.16),g);
+    }
+    return col;
+}
+
+void main(){
+    vec2 uv = qt_TexCoord0;
+    float t = ubuf.uTime;
+    vec3 col;
+    if      (ubuf.uMode==0) col=aurora(uv,t);
+    else if (ubuf.uMode==1) col=determination(uv,t);
+    else if (ubuf.uMode==2) col=gameboy(uv,t);
+    else if (ubuf.uMode==3) col=nes(uv,t);
+    else if (ubuf.uMode==4) col=synthwave(uv,t);
+    else if (ubuf.uMode==5) col=terminal(uv,t);
+    else                    col=winxp(uv,t);
+    fragColor = vec4(col,1.0)*ubuf.qt_Opacity;
+}
