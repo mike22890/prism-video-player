@@ -91,4 +91,4 @@ bash build.sh
 
 ## 许可
 
-应用源码按现状提供。界面音效来自 [Kenney Interface Sounds](https://kenney.nl/assets/interface-sounds)（CC0 1.0）；内置的 Qt 6 与 mpv 二进制各自遵守其许可。
+Prism 本体是 [MIT 许可](LICENSE)。内置的第三方组件（Qt 6、mpv、Kenney CC0 音效）各有自己的许可和义务，详见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。如果你要再分发这个可直接运行的包，先读那个文件——内置 mpv 二进制的确切许可模式尚未确认。

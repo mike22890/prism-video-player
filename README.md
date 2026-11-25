@@ -1,5 +1,10 @@
 # Prism
 
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
+![Platform: Windows](https://img.shields.io/badge/platform-Windows-0078D6)
+![Qt](https://img.shields.io/badge/Qt-6.10-41CD52)
+![Engine](https://img.shields.io/badge/engine-libmpv-orange)
+
 **A multi-grid video player for Windows — seven animated themes, Ambilight glow, and per-theme sound design.**
 
 > One prism splits light into many beams. Prism splits one window into up to four synced video grids — each with its own controls, its own theme, and only the focused one makes sound.
@@ -89,7 +94,7 @@ Video shaders (CRT / VHS / Neon / LCD / Pixel) are independent of themes — swi
 
 ## License
 
-The application source is provided as-is. Interface sound effects are [Kenney Interface Sounds](https://kenney.nl/assets/interface-sounds) (CC0 1.0); the bundled Qt 6 and mpv binaries keep their respective licenses.
+Prism is [MIT licensed](LICENSE). Bundled third-party components (Qt 6, mpv, Kenney CC0 sounds) carry their own licenses and obligations — documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). If you plan to redistribute the ready-to-run bundle, read that file first: the exact license mode of the bundled mpv binary has not been confirmed.
 
 ---
 
