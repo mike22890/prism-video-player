@@ -24,18 +24,17 @@ Most video players show one file at a time. Prism is built for comparing clips, 
 - **Ambilight** — the colors at the video edge bleed softly into the empty space around it, pulsing gently. Toggle with `A`.
 - **One self-contained folder** — `build/bin/` runs by double-clicking `prism.exe`. Qt runtime, mpv, themes, shaders, and fonts are already beside it. Copy the folder, it still runs.
 
-## Quick start
+## Download (easiest)
+
+Grab **`Prism-v1.0.0-win64.zip`** from [Releases](https://github.com/mike22890/prism-video-player/releases/latest). Extract it anywhere and double-click `prism.exe` — Qt runtime, mpv, themes, shaders and fonts are all included. No install, no build.
+
+## Build from source
 
 ```bash
-# Already built? Just run it.
-build/bin/prism.exe
-build/bin/prism.exe "path/to/video.mp4"     # opens the whole folder as a playlist
-
-# Rebuild from source (toolchain is bundled, MinGW — not MSVC):
+# Toolchain is bundled (Qt 6.10.2 MinGW / CMake 3.31.6 / Ninja / gcc 15.2.0 / mpv 0.42).
+# Note: MSVC is not used — the build must target mingw_64.
 bash build.sh
 ```
-
-No install, no dev/dist split. Drag a file or folder onto the window and it builds a playlist with natural sorting (`ep2` before `ep10`).
 
 ## Controls
 

@@ -21,18 +21,19 @@
 - **环境光** —— 视频边缘的颜色柔和地溢到周围空白区，带极轻呼吸。按 `A` 开关。
 - **一个自包含目录** —— `build/bin/` 双击 `prism.exe` 就跑，Qt 运行时、mpv、主题、着色器、字体都在旁边，整个目录拷走照样能跑。
 
-## 快速开始
+## 下载（最简单）
+
+到 [Releases](https://github.com/mike22890/prism-video-player/releases/latest) 下载 **`Prism-v1.0.0-win64.zip`**，解压到任意位置，双击 `prism.exe` 就跑。Qt 运行时、mpv、主题、着色器、字体全在里面，免安装免编译。
+
+拖文件或文件夹进窗口即建列表，自然排序（`ep2` 在 `ep10` 前）。
+
+## 从源码构建
 
 ```bash
-# 已构建好？直接跑
-build/bin/prism.exe
-build/bin/prism.exe "视频路径.mp4"     # 自动把整个目录收成播放列表
-
-# 从源码重建（工具链已内置，MinGW 不是 MSVC）：
+# 工具链已内置（Qt 6.10.2 MinGW / CMake 3.31.6 / Ninja / gcc 15.2.0 / mpv 0.42）。
+# 注意：不用 MSVC，必须指向 mingw_64。
 bash build.sh
 ```
-
-免安装，无 dev/dist 双轨。拖文件或文件夹进窗口即建列表，自然排序（`ep2` 在 `ep10` 前）。
 
 ## 快捷键
 
